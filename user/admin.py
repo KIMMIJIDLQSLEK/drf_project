@@ -1,6 +1,9 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from .models import User
 
-# Register your models here.
+#Group빼기
+admin.site.unregister(Group)
+
 #user모델 등록
 admin.site.register(User)
