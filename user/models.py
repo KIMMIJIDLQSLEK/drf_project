@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    username=models.CharField("사용자이름",max_length=50,primary_key=True) #pk로 지정
+    username=models.CharField("사용자이름",max_length=50,unique=True) #pk로 지정
     password=models.CharField("비밀번호",max_length=250)
     email=models.EmailField("이메일")
     nickname=models.CharField("닉네임",max_length=100)
@@ -70,7 +70,8 @@ class UserProfile(models.Model):
     user=models.OneToOneField(to=User,verbose_name="사용자",primary_key=True,on_delete=models.CASCADE)
     introduction=models.CharField("소개글",max_length=300)
 
-
+    def __str__(self):
+        return f"{self.user}의 프로필"
 
 
 
