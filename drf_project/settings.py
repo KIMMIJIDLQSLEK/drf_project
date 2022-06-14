@@ -41,6 +41,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.User' #내가 만든 유저모델을 auth.user 대신해 사용할것이다.
 
 # Application definition
 
