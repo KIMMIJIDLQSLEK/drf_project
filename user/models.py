@@ -66,5 +66,11 @@ class User(AbstractBaseUser):
         return self.is_admin
 
 
+class UserProfile(models.Model):
+    user=models.OneToOneField(to=User,verbose_name="사용자",primary_key=True,on_delete=models.CASCADE)
+    introduction=models.CharField("소개글",max_length=300)
+
+
+
 
 
