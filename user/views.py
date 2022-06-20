@@ -26,13 +26,14 @@ class LoginView(APIView):
 class UserView(APIView):
     permission_classes = [permissions.AllowAny]
     def get(self,request):
-        user=User.objects.get(pk=2)
+        user=request.user
         print(user)
         if user.is_authenticated: #user가 존재하면
             userprofile=UserProfile.objects.get(user=user)
             article=Article.objects.get(author=user)
 
             data={
+                "message":"사용자의 정보",
                 "nickname":userprofile.user.nickname,
                 "introduction":userprofile.introduction,
                 "title":article.title,
