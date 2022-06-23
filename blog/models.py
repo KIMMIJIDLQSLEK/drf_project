@@ -13,11 +13,11 @@ class Category(models.Model):
         verbose_name_plural='Categories'
 
 class Article(models.Model):
-    author=models.ForeignKey(to=User,verbose_name="글작성자",on_delete=models.CASCADE) #user와 일대다관계
-    title=models.CharField("글제목",max_length=50)
-    category=models.ManyToManyField(to=Category,verbose_name="카테고리") #category와 다대다관계
-    contents=models.TextField("글내용")
-    created_at=models.DateField("작성날짜",auto_now_add=True)
+    author=models.ForeignKey(to=User,verbose_name="게시물작성자",on_delete=models.CASCADE) #user와 일대다관계
+    title=models.CharField("게시물 제목",max_length=50)
+    category=models.ManyToManyField(to=Category,verbose_name="게시물 카테고리") #category와 다대다관계
+    contents=models.TextField("게시물 내용")
+    created_at=models.DateField("게시물작성날짜",auto_now_add=True)
 
     def __str__(self):
         return f"{self.author}의 게시물: {self.title}"
