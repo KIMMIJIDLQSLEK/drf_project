@@ -10,18 +10,21 @@ class CreateBlog(APIView):
     permissions=[permissions.IsAuthenticated]
     def post(self,request):
         user=request.user
-        title=request.data.get('title')
-        categories=request.data.get('category')
-        contents=request.data.get('content')
-        Article.objects.create(
+        print(user)
+        title=request.data['title']
+        categories=request.data['category']
+        contents=request.data['content']
+
+        #ToDo: 게시물 생성
+        article=Article.objects.create(
             author=user,
             title=title,
             contents=contents,
         )
-        # for category in categories:
-        #     category_name=Category.objects.get(name=category)
-
-
+        #ToDo: 카테고리 등록
+        for category in categories:
+            article.category.add(category)
+            article.save()
 
         return Response({"message":"게시글 생성 완료"},status=status.HTTP_200_OK)
 
