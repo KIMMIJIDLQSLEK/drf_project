@@ -24,20 +24,24 @@ class LoginView(APIView):
         return Response({"message":"로그인완료"},status=status.HTTP_200_OK)
 
 class UserView(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     def get(self,request):
         user=request.user
         print(user)
         if user.is_authenticated: #user가 존재하면
             userprofile=UserProfile.objects.get(user=user)
-            article=Article.objects.get(author=user)
+            articles=Article.objects.filter(author=user)
+
+            article_list=[]
+            for article in articles:
+                article_list.append({"title":article.title,"contents":article.contents})
 
             data={
-                "message":"사용자의 정보",
-                "nickname":userprofile.user.nickname,
+                #로그인한 사용자의 정보
+                "user":user.username,
                 "introduction":userprofile.introduction,
-                "title":article.title,
-                "contents":article.contents,
+                #로그인한 사용자의 게시물
+                "article_list":article_list,
 
             }
             return Response(data,status=status.HTTP_200_OK)
