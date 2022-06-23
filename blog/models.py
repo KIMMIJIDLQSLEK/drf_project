@@ -21,3 +21,12 @@ class Article(models.Model):
 
     def __str__(self):
         return f"{self.author}의 게시물: {self.title}"
+
+class Comment(models.Model):
+    article=models.ForeignKey(to=Article,verbose_name="게시물",on_delete=models.CASCADE)
+    author=models.ForeignKey(to=User,verbose_name="댓글작성자",on_delete=models.CASCADE)
+    contents=models.CharField("댓글",max_length=100)
+    created_at=models.DateField("댓글작성날짜",auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.article}-{self.author}의 댓글"
