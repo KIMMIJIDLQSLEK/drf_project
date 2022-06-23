@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate,login
 from rest_framework import status
 from .models import User,UserProfile
 from blog.models import Article
+from .serializers import UserSerializer
 
 # Create your views here.
 class LoginView(APIView):
@@ -25,28 +26,9 @@ class LoginView(APIView):
 
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
+
     def get(self,request):
         user=request.user
-        print(user)
-        if user.is_authenticated: #user가 존재하면
-            userprofile=UserProfile.objects.get(user=user)
-            articles=Article.objects.filter(author=user)
-
-            article_list=[]
-            for article in articles:
-                article_list.append({"title":article.title,"contents":article.contents})
-
-            data={
-                #로그인한 사용자의 정보
-                "user":user.username,
-                "introduction":userprofile.introduction,
-                #로그인한 사용자의 게시물
-                "article_list":article_list,
-
-            }
-            return Response(data,status=status.HTTP_200_OK)
-
-        else:
-            return Response({"message":"로그인을 해주세요"},status=status.HTTP_401_UNAUTHORIZED)
-
+        user_serializer_data=UserSerializer(user).data
+        return Response(user_serializer_data,status=status.HTTP_200_OK)
 
