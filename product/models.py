@@ -6,8 +6,8 @@ class Event(models.Model):
     preview=models.FileField("썸네일",upload_to='product/files/%Y/%m/%d/',blank=True)
     introduction=models.CharField("설명",max_length=200)
     created_at=models.DateField("등록일자",auto_now_add=True)
-    started_at=models.DateField("노출시작일",)
-    ended_at=models.DateField("노출종료일")
+    started_at=models.DateTimeField("노출시작일",)
+    ended_at=models.DateTimeField("노출종료일")
     activate=models.BooleanField("활성화여부")
 
     def __str__(self):
