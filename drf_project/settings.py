@@ -152,6 +152,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+#현재프로젝트안의 _media파일에 이미지 저장
 MEDIA_ROOT=os.path.join(BASE_DIR,'_media')
 
 # Default primary key field type
