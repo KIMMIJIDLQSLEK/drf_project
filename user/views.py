@@ -23,7 +23,23 @@ class SignInView(APIView):
             return Response({"message":"존재하지 않는 계정이거나 아이디와 비밀번호가 일치하지 않습니다."},status=status.HTTP_401_UNAUTHORIZED)
 
         login(request,user)
-        return Response({"message":"로그인완료"},status=status.HTTP_200_OK)
+        return Response({"message":f"{user.username}님, 로그인완료"},status=status.HTTP_200_OK)
+
+
+#todo: 회원가입기능
+class SignUpView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self,request):
+        user_serializer=UserSerializer(data=request.data)
+
+        #검증
+        user_serializer.is_valid(raise_exception=True)
+        #생성
+        user_serializer.save()
+
+        return Response(user_serializer.data,status=status.HTTP_200_OK)
+
 
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
