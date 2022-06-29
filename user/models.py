@@ -32,9 +32,8 @@ class User(AbstractBaseUser):
     nickname=models.CharField("닉네임",max_length=100)
     created_at=models.DateField("가입날짜",auto_now_add=True)
     is_active=models.BooleanField(default=True) #비활성화여부
-
-    # is_staff에서 해당 값 사용
-    is_admin = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False) #관리자여부
+    is_seller=models.BooleanField(default=False) # True이면 판매자. False이면 일반사용자
 
     # createsuperuser로 로그인할때 USERNAME_FIELD에 지정한 필드와 password를 입력받겠다.
     # USERNAME_FIELD는 PK인 필드만 가능하다
