@@ -9,7 +9,8 @@ from blog.models import Article
 from .serializers import UserSerializer
 
 # Create your views here.
-class LoginView(APIView):
+#todo: 로그인 기능
+class SignInView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self,request):
