@@ -41,11 +41,13 @@ class SignUpView(APIView):
         return Response(user_serializer.data,status=status.HTTP_200_OK)
 
 
-class UserView(APIView):
+#todo: 마이페이지 기능
+class MyPageView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
         user=request.user
         user_serializer_data=UserSerializer(user).data
-        return Response(user_serializer_data,status=status.HTTP_200_OK)
+
+        return Response(user_serializer_data["userprofile"],status=status.HTTP_200_OK)
 

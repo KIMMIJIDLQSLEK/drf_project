@@ -2,13 +2,6 @@ from rest_framework import serializers
 from .models import User,UserProfile
 from blog.models import Article,Category
 
-#TODO
-#ArticleSerializer생성
-class ArticleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Article
-        fields=["title","contents"]
-
 #ToDo
 #UserProfileSerializer생성
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -16,11 +9,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model=UserProfile
         fields=["introduction"]
 
-#ToDo
+#ToDo: 회원가입+소개글작성
 #UserSerializer생성
 class UserSerializer(serializers.ModelSerializer):
     userprofile=UserProfileSerializer()
-    # article_set=ArticleSerializer(many=True)
 
     # custom creator
     def create(self, validated_data):
@@ -38,9 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields=["username","password","email","nickname",'is_seller',"userprofile"
-            # , "article_set"
-                ]
+        fields=["username","password","email","nickname",'is_seller',"userprofile"]
 
 
         extra_kwargs={
