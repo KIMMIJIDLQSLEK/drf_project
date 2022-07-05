@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import User,UserProfile
-from blog.models import Article,Category
 
 #ToDo
 #UserProfileSerializer생성

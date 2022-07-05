@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event
+from .models import Event,Product
 from django.utils.safestring import mark_safe
 
 class EventAdmin(admin.ModelAdmin):
@@ -20,3 +20,4 @@ class EventAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Event,EventAdmin)
+admin.site.register(Product)
