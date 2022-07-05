@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import EventView,EventThumbnailView
+from .views import ProductAllView,ProductImgView
 
 urlpatterns=[
-    path('event/',EventView.as_view()),
+    path('',ProductAllView.as_view()),
     #이메일 url
-    path('thumbnail/<obj_id>/',EventThumbnailView.as_view()),
+    path('img/<obj_id>/',ProductImgView.as_view()),
 ]
