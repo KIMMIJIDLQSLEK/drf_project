@@ -1,23 +1,28 @@
 from django.contrib import admin
-from .models import Event,Product
+from .models import Product,Category
 from django.utils.safestring import mark_safe
 
-class EventAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        'title',
-        'thumbnail',
-        'introduction',
+        'id',
+        'user',
+        'product_name',
+        'price',
         'started_at',
         'ended_at',
-        'activate',
-        'thumbnail_preview'
+        'img_preview'
+    )
+    list_display_links = ('product_name',)
+
+    def img_preview(self,obj):
+        return mark_safe(f'<img src="/products/img/{obj.id}/" height="150px"/>')
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'introduction'
     )
 
-    def thumbnail_preview(self,obj):
-        return mark_safe(f'<img src="/product/thumbnail/{obj.id}/" height="150px"/>')
-
-
-
 # Register your models here.
-admin.site.register(Event,EventAdmin)
-admin.site.register(Product)
+admin.site.register(Category,CategoryAdmin)
+admin.site.register(Product,ProductAdmin)
