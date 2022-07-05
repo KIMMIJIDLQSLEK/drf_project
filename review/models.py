@@ -11,4 +11,4 @@ class Review(models.Model):
     created_at=models.DateField("리뷰작성날짜",auto_now_add=True)
 
     def __str__(self):
-        return f"{self.author}의 리뷰: {self.contents}"
+        return self.contents
