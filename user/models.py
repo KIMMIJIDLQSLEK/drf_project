@@ -66,7 +66,7 @@ class User(AbstractBaseUser):
 
 
 class UserProfile(models.Model):
-    user=models.OneToOneField(to=User,verbose_name="사용자",primary_key=True,on_delete=models.CASCADE)
+    user=models.OneToOneField(to=User,verbose_name="사용자",on_delete=models.CASCADE)
     introduction=models.CharField("소개글",max_length=300)
 
     def __str__(self):
