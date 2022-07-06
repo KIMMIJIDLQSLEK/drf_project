@@ -19,8 +19,8 @@ class Product(models.Model):
     category=models.ManyToManyField(to=Category,verbose_name="카테고리")
     price=models.IntegerField("가격")
     uploaded_at=models.DateField("상품업로드날짜",auto_now_add=True)
-    started_at = models.DateTimeField("노출시작일")
-    ended_at = models.DateTimeField("노출종료일")
+    started_at = models.DateField("노출시작일")
+    ended_at = models.DateField("노출종료일")
 
     def __str__(self):
         return self.product_name
