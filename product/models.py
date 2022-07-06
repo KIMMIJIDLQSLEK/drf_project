@@ -14,7 +14,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     user=models.ForeignKey(to=User,verbose_name="게시인",on_delete=models.CASCADE)
-    product_name=models.CharField("상품이름",max_length=100)
+    product_name=models.CharField("상품이름",unique=True,max_length=100)
     product_img=models.ImageField("상품이미지",upload_to='images/product/')
     category=models.ManyToManyField(to=Category,verbose_name="카테고리")
     price=models.IntegerField("가격")
