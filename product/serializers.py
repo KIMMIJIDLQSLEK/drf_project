@@ -14,7 +14,11 @@ class ProductSerializer(serializers.ModelSerializer):
     #TODO: product 생성(user context로 받아오기)
     def create(self,validated_data):
         #카테고리
-        categories=list(map(int,validated_data.pop('get_categories')[0].split(",")))
+        try:
+            categories = list(map(int, validated_data.pop('get_categories')[0].split(",")))
+        except:
+            categories=[]
+
 
         #Product object 생성
         product=Product(**validated_data)
@@ -49,6 +53,7 @@ class ProductSerializer(serializers.ModelSerializer):
                 }
             },
             'product_img':{
+                'write_only':True,
                 'error_messages':{
                     'invalid':'상품이미지를 반드시 등록해주세요.',
                 }
