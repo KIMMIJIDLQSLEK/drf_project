@@ -64,6 +64,20 @@ class ProductDetailView(APIView):
 
 
     #TODO: product detail 수정
+    def post(self,request,obj_id):
+        user=request.user
+        product=Product.objects.get(id=obj_id)
+        if user.is_seller is False and product.user!=user: #판매자가 아닐경우
+            return Response({'error':'해당하는 상품의 판매자가아닙니다.'},status=status.HTTP_400_BAD_REQUEST)
+
+        product_serializer=ProductSerializer(product,data=request.data,partial=True)
+
+        #검증
+        product_serializer.is_valid(raise_exception=True)
+        #수정
+        product_serializer.save()
+
+        return Response(product_serializer.data,status=status.HTTP_200_OK)
 
 
 class ProductImgView(APIView):

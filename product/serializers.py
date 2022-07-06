@@ -33,6 +33,26 @@ class ProductSerializer(serializers.ModelSerializer):
 
         return product
 
+    #TODO: product 수정(카테고리, 가격, 노출시작일자, 노출종료일만 수정가능)
+    def update(self, product, validated_data):
+        for key,value in validated_data.items():
+            if key=='get_categories':
+                #기존에 있던 카테고리 지우고 새로 업데이트
+                product.category.clear()
+                product.category.add(*value)
+
+            elif key=='price':
+                product.price=value
+
+            elif key=='started_at':
+                product.started_at=value
+
+            elif key=='ended_at':
+                product.ended_at=value
+
+        product.save()
+
+        return product
 
     #TODO: 시작일<=종료일
     #custom validator
