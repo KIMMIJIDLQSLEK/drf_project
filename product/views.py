@@ -22,7 +22,6 @@ class SellerPermissision(permissions.BasePermission):
         )
 
 
-# Create your views here.
 class ProductView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -52,6 +51,19 @@ class ProductCreateView(APIView):
         product_serializer.save()
 
         return Response(product_serializer.data,status=status.HTTP_200_OK)
+
+class ProductDetailView(APIView):
+    permissions_classes=[permissions.IsAuthenticated]
+
+    #TODO: product detail 조회
+    def get(self,request,obj_id):
+        product=Product.objects.get(id=obj_id)
+        product_serializer=ProductSerializer(product)
+
+        return Response(product_serializer.data,status=status.HTTP_200_OK)
+
+
+    #TODO: product detail 수정
 
 
 class ProductImgView(APIView):
