@@ -9,7 +9,7 @@ class ReviewAdmin(admin.ModelAdmin):
         'contents',
         'grade'
     )
-    list_display_links = ('product',)
+    list_display_links = ('contents',)
     readonly_fields = ('created_at',)
 
 admin.site.register(Review,ReviewAdmin)
