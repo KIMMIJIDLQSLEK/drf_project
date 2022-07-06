@@ -9,6 +9,17 @@ from .models import Product
 from django.views.static import serve
 from datetime import datetime
 from django.db.models import Q
+from rest_framework import permissions
+
+#todo: permission 커스텀(seller & isauthenticated)
+class SellerPermissision(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            request.user.is_seller
+        )
 
 
 # Create your views here.
@@ -26,10 +37,14 @@ class ProductView(APIView):
 
         return Response(product_serializer.data,status=status.HTTP_200_OK)
 
+class ProductCreateView(APIView):
+    permission_classes =[SellerPermissision]
+
     #TODO: product 생성
     def post(self,request):
         #request: product모델
-        product_serializer=ProductSerializer(data=request.data)
+        user=request.user
+        product_serializer=ProductSerializer(data=request.data,context={'user': user})
 
         #validate
         product_serializer.is_valid(raise_exception=True)
