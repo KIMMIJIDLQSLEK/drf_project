@@ -1,12 +1,21 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
+from .models import Review
+from .serializers import ReviewSerializer
 
 # Create your views here.
-class CreateBlog(APIView):
+class ReviewGetOrCreateView(APIView):
     permissions=[permissions.IsAuthenticated]
+
+    #Todo: reviews 조회(전부)
+    def get(self,request):
+        reviews=Review.objects.all()
+        review_serializer=ReviewSerializer(reviews,many=True)
+
+        return Response(review_serializer.data,status=status.HTTP_200_OK)
+
     def post(self,request):
         user=request.user
         print(user)

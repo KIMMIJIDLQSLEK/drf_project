@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import CreateBlog
+from .views import ReviewGetOrCreateView
 
 
 urlpatterns=[
-    path('create/',CreateBlog.as_view()),
+    path('',ReviewGetOrCreateView.as_view()),
 ]
