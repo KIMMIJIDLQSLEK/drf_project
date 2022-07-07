@@ -61,3 +61,16 @@ class ReviewDeleteView(APIView):
         review.delete()
         return Response({'message': '리뷰가 정상적으로 삭제되었습니다.'},status=status.HTTP_200_OK)
 
+
+class ReviewFilterView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self,request,obj_id):
+        #여기서 obj_id는 product_id
+
+        product_review=Review.objects.filter(product=obj_id)
+        if product_review.exists():
+            product_review_serializer=ReviewSerializer(product_review,many=True)
+            return Response(product_review_serializer.data,status=status.HTTP_200_OK)
+
+        return Response({'message':'해당 상품의 리뷰가 없습니다.'},status=status.HTTP_200_OK)
