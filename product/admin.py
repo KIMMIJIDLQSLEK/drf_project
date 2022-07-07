@@ -19,9 +19,11 @@ class ProductAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'name',
         'introduction'
     )
+    list_display_links = ('name',)
 
 # Register your models here.
 admin.site.register(Category,CategoryAdmin)

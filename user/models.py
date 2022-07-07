@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    username=models.CharField("사용자이름",max_length=50,unique=True,error_messages={'unique':'이미 존재하는 사용자입니다.'}) #pk로 지정
+    username=models.CharField("사용자이름",max_length=50,unique=True,error_messages={'unique':'이미 존재하는 사용자입니다.'})
     password=models.CharField("비밀번호",max_length=250)
     email=models.EmailField("이메일")
     nickname=models.CharField("닉네임",max_length=100)
