@@ -7,7 +7,7 @@ from .serializers import ReviewSerializer
 
 # Create your views here.
 class ReviewGetOrCreateView(APIView):
-    permissions=[permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     #Todo: reviews 조회(전부)
     def get(self,request):
@@ -16,23 +16,16 @@ class ReviewGetOrCreateView(APIView):
 
         return Response(review_serializer.data,status=status.HTTP_200_OK)
 
+    #Todo: review 생성
     def post(self,request):
         user=request.user
-        print(user)
-        title=request.data['title']
-        categories=request.data['category']
-        contents=request.data['content']
+        review_serializer=ReviewSerializer(data=request.data,context={'user':user})
 
-        # #ToDo: 게시물 생성
-        # article=Article.objects.create(
-        #     author=user,
-        #     title=title,
-        #     contents=contents,
-        # )
-        #ToDo: 카테고리 등록
-        # for category in categories:
-        #     article.category.add(category)
-        #     article.save()
+        #검증
+        review_serializer.is_valid(raise_exception=True)
 
-        return Response({"message":"게시글 생성 완료"},status=status.HTTP_200_OK)
+        #생성
+        review_serializer.save()
+
+        return Response(review_serializer.data,status=status.HTTP_200_OK)
 
