@@ -29,3 +29,25 @@ class ReviewGetOrCreateView(APIView):
 
         return Response(review_serializer.data,status=status.HTTP_200_OK)
 
+
+class ReviewUpdateView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    #TODO: review 수정
+    def post(self,request,obj_id):
+        review=Review.objects.get(id=obj_id)
+        print(review)
+        if request.user==review.author:
+            review_serializer=ReviewSerializer(review,data=request.data,partial=True)
+
+           # 검증
+            review_serializer.is_valid(raise_exception=True)
+            #수정
+            review_serializer.save()
+
+            return Response(review_serializer.data,status=status.HTTP_200_OK)
+
+        #리뷰작성자가 아닐경우
+        return Response({'error':'리뷰의 작성자가 아닙니다.'},status=status.HTTP_400_BAD_REQUEST)
+
+
