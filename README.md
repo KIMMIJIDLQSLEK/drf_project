@@ -22,8 +22,9 @@ DRF를 이용한 여름나기 빙수 쇼핑몰 프로젝트입니다.
   >    - 구매자일경우 빙수 조회, 구매
   >    - 판매자일경우 판매할 빙수를 조회, 추가, 수정, 삭제하며 관리
   >    - 판매자가 게시한 날짜동안 빙수 구매가능
+  > Django Rest Framework와 Serializer를 사용한 프로젝트
 
-> 
+
   
 ## 기술 스택
 
@@ -76,3 +77,6 @@ Review
 
 Cart
 >id(PK), user(FK), product(FK), count
+
+## API 설계
+
