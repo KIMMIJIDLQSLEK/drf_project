@@ -50,4 +50,14 @@ class ReviewUpdateView(APIView):
         #리뷰작성자가 아닐경우
         return Response({'error':'리뷰의 작성자가 아닙니다.'},status=status.HTTP_400_BAD_REQUEST)
 
+class ReviewDeleteView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self,request,obj_id):
+        review=Review.objects.get(id=obj_id)
+        if request.user!=review.author:
+            return Response({'error':'리뷰의 작성자가 아닙니다.'},status=status.HTTP_400_BAD_REQUEST)
+
+        review.delete()
+        return Response({'message': '리뷰가 정상적으로 삭제되었습니다.'},status=status.HTTP_200_OK)
 
