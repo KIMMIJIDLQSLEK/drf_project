@@ -4,13 +4,19 @@ from .models import Review
 # Register your models here.
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'author',
         'product',
         'contents',
-        'grade'
+        'grade',
     )
     list_display_links = ('contents',)
-    readonly_fields = ('created_at',)
+    list_filter = ('product',)
+    fieldsets = (
+        ("info", {'fields': ('author', 'product', 'grade','contents')}),
+        ('etc', {'fields': ('update_check', 'created_at',)}),
+    )
+    readonly_fields = ('update_check','created_at')
 
 admin.site.register(Review,ReviewAdmin)
 
