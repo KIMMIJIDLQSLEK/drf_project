@@ -75,7 +75,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'product_img':{
                 'write_only':True,
                 'error_messages':{
-                    'invalid':'상품이미지를 반드시 등록해주세요.',
+                    'required':'상품이미지를 반드시 등록해주세요.',
+                    'invalid':'파일 형식이 아닙니다.'
                 }
             },
             'started_at':{
