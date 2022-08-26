@@ -80,3 +80,6 @@ Cart
 
 ## API 설계
 
+## DB 설계
+https://www.erdcloud.com/d/MeSHsf9WwiZ6Njk4D
+
